@@ -76,7 +76,7 @@ class SecuredPathModel extends GenericModel {
             $modelPath = $query->queryFirst();
 
             if ($modelPath == null) {
-                $modelPath = $this->createData(array(
+                $modelPath = $this->createEntry(array(
                     'path' => $path,
                     'isSecured' => false,
                 ));
