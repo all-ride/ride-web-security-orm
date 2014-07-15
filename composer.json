@@ -17,5 +17,10 @@
         "ride/lib-system": ">=0.1.2",
         "ride/web": ">=0.2.4",
         "ride/web-security": ">=0.1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "ride\\web\\security\\model\\orm\\": ["src/"]
+        }
     }
 }
