@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<models>
+	<model name="User" modelClass="ride\web\security\model\orm\UserModel" entryClass="ride\web\security\model\orm\entry\UserEntry">
+		<field name="username" type="string">
+            <validation name="required" />
+            <validation name="size">
+                <parameter name="minimum" value="3" />
+            </validation>
+		</field>
+		<field name="password" type="password">
+            <validation name="required" />
+            <validation name="size">
+                <parameter name="minimum" value="3" />
+            </validation>
+        </field>
+        <field name="name" type="string" />
+		<field name="email" type="email" />
+		<field name="image" type="image" />
+		<field name="userPreferences" model="UserPreference" relation="hasMany" indexOn="name" dependant="1" />
+		<field name="roles" model="Role" relation="hasMany" relationOrder="{role.name} ASC" />
+		<field name="isActive" type="boolean" />
+		<field name="isSuperUser" type="boolean" />
+		<field name="lastIp" type="string" />
+		<field name="dateLastLogin" type="date" />
+		<field name="dateAdded" type="date" />
+		<field name="dateModified" type="date" />
+		<field name="version" type="integer" />
+
+		<index name="username">
+            <indexField name="username" />
+		</index>
+
+		<format name="title">{username}</format>
+		<format name="image">{image}</format>
+		<format name="teaser">{email}</format>
+
+        <option name="group" value="security" />
+        <option name="order.field" value="username" />
+	</model>
+
+	<model name="UserPreference">
+	   <field name="user" model="User" relation="belongsTo">
+            <validation name="required" />
+	   </field>
+	   <field name="name" type="string">
+            <validation name="required" />
+	   </field>
+	   <field name="value" type="text" />
+
+		<format name="title">{name}</format>
+		<format name="teaser">{value}</format>
+
+		<option name="group" value="security" />
+	</model>
+
+	<model name="Role" modelClass="ride\web\security\model\orm\RoleModel" entryClass="ride\web\security\model\orm\entry\RoleEntry">
+		<field name="name" type="string" label="orm.security.label.role">
+            <validation name="required" />
+		</field>
+		<field name="permissions" model="Permission" relation="hasMany" relationOrder="{permission.code} ASC" />
+		<field name="rolePaths" model="SecuredPath" relation="hasMany" relationOrder="{securedPath.path} ASC" />
+		<field name="dateAdded" type="datetime" />
+		<field name="dateModified" type="datetime" />
+		<field name="version" type="integer" />
+
+		<format name="title">{name}</format>
+
+		<option name="group" value="security" />
+        <option name="order.field" value="name" />
+    </model>
+
+    <model name="Permission" modelClass="ride\web\security\model\orm\PermissionModel" entryClass="ride\web\security\model\orm\entry\PermissionEntry">
+        <field name="code" type="string" unique="true">
+            <validation name="required" />
+        </field>
+        <field name="description" type="text">
+            <validation name="required" />
+        </field>
+
+        <format name="title">{code}</format>
+        <format name="teaser">{description}</format>
+
+        <option name="group" value="security" />
+        <option name="order.field" value="code" />
+    </model>
+
+    <model name="SecuredPath" modelClass="ride\web\security\model\orm\SecuredPathModel">
+        <field name="path" type="string" unique="true">
+            <validation name="required" />
+        </field>
+        <field name="isSecured" type="boolean" />
+
+        <index name="isSecured">
+            <indexField name="isSecured" />
+        </index>
+
+        <format name="title">{path}</format>
+
+        <option name="group" value="security" />
+        <option name="order.field" value="path" />
+    </model>
+</models>
