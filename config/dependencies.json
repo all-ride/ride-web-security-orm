@@ -1,0 +1,44 @@
+{
+    "dependencies": [
+        {
+            "interfaces": ["ride\\library\\security\\model\\SecurityModel", "ride\\library\\security\\model\\ChainableSecurityModel"],
+            "class": "ride\\web\\security\\model\\orm\\OrmSecurityModel",
+            "id": "orm",
+            "calls": [
+                {
+                    "method": "__construct",
+                    "arguments": [
+                        {
+                            "name": "hashAlgorithm",
+                            "type": "dependency",
+                            "properties": {
+                                "interface": "ride\\library\\encryption\\hash\\Hash",
+                                "id": "security"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "interfaces": "ride\\library\\security\\model\\SecurityModel",
+            "extends": "chain",
+            "id": "chain",
+            "calls": [
+                {
+                    "method": "addSecurityModel",
+                    "arguments": [
+                        {
+                            "name": "securityModel",
+                            "type": "dependency",
+                            "properties": {
+                                "interface": "ride\\library\\security\\model\\ChainableSecurityModel",
+                                "id": "orm"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
