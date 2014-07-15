@@ -154,7 +154,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
             if (isset($modelPermissions[$code])) {
                 $role->permissions[$code] = $modelPermissions[$code];
             } else {
-                $permission = new PermissionData();
+                $permission = new PermissionEntry();
                 $permission->code = $code;
                 $permission->description = $code;
 
@@ -193,7 +193,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
     /**
      * Gets a user by it's username
      * @param string $id Id of the user
-     * @return \ride\library\security\model\orm\data\UserData|null User object
+     * @return \ride\library\security\model\orm\data\UserEntry|null User object
      * if found, null otherwise
      */
     public function getUserById($id) {
@@ -205,7 +205,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
     /**
      * Gets a user by it's username
      * @param string $username Username
-     * @return \ride\library\security\model\orm\data\UserData|null User object
+     * @return \ride\library\security\model\orm\data\UserEntry|null User object
      * if found, null otherwise
      */
     public function getUserByUsername($username) {
@@ -217,7 +217,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
     /**
      * Gets a user by it's email address
      * @param string $email Email address of the user
-     * @return \ride\library\security\model\orm\data\UserData|null User object
+     * @return \ride\library\security\model\orm\data\UserEntry|null User object
      * if found, null otherwise
      */
     public function getUserByEmail($email) {
@@ -304,7 +304,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
     public function createUser() {
         $userModel = $this->orm->getUserModel();
 
-        return $userModel->createData();
+        return $userModel->createEntry();
     }
 
     /**
@@ -425,7 +425,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
     public function createRole() {
         $roleModel = $this->orm->getRoleModel();
 
-        return $roleModel->createData();
+        return $roleModel->createEntry();
     }
 
     /**
@@ -481,7 +481,7 @@ class OrmSecurityModel implements ChainableSecurityModel {
 
         $permissionModel = $this->orm->getPermissionModel();
 
-        $permission = $permissionModel->createData();
+        $permission = $permissionModel->createEntry();
         $permission->code = $code;
         $permission->description = $code;
 

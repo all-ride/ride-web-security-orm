@@ -3,7 +3,8 @@
 namespace ride\web\security\model\orm;
 
 use ride\library\orm\model\GenericModel;
-use ride\library\security\model\orm\data\RoleData;
+
+use ride\web\security\model\orm\entry\RoleEntry;
 
 /**
  * Role model
@@ -36,12 +37,12 @@ class RoleModel extends GenericModel {
 
     /**
      * Sets the allowed paths for the provided role
-     * @param ride\security\orm\data\RoleData $role Role for the provided
+     * @param ride\web\security\orm\entry\RoleEntry $role Role for the provided
      * paths
      * @param array $routes Array with a path string per element
      * @return null
      */
-    public function setAllowedPathsToRole(RoleData $role, array $paths) {
+    public function setAllowedPathsToRole(RoleEntry $role, array $paths) {
         $pathModel = $this->orm->getSecuredPathModel();
 
         $role->setRolePaths($pathModel->getPathsFromArray($paths));
