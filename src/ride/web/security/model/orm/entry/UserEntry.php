@@ -97,6 +97,52 @@ class UserEntry extends OrmUserEntry implements User {
     }
 
     /**
+     * Sets the email address of this user
+     * @param string $email
+     * @return
+     */
+    public function setEmail($email) {
+        parent::setEmail($email);
+
+        $this->setIsEmailConfirmed(false);
+    }
+
+    /**
+     * Sets whether this user's email address has been confirmed
+     * @param boolean $isConfirmed
+     * @return null
+     */
+    public function setIsEmailConfirmed($isEmailConfirmed) {
+        if (!$this->getEmail()) {
+            parent::setIsEmailConfirmed(false);
+        } else {
+            parent::setIsEmailConfirmed($isEmailConfirmed);
+        }
+    }
+
+    /**
+     * Gets the highest weight of the user's roles
+     * @return integer
+     */
+    public function getRoleWeight() {
+        if ($this->isSuperUser()) {
+            return 2147483647;
+        }
+
+        $roles = $this->getRoles();
+        $weight = 0;
+
+        foreach ($roles as $role) {
+            $roleWeight = $role->getWeight();
+            if ($roleWeight > $weight) {
+                $weight = $roleWeight;
+            }
+        }
+
+        return $weight;
+    }
+
+    /**
      * Checks whether a permission is granted for this user
      * @param string $code Code of the permission to check
      * @return boolean True if permission is granted, false otherwise
