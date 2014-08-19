@@ -56,6 +56,8 @@
     <model name="Role" modelClass="ride\web\security\model\orm\RoleModel" entryClass="ride\web\security\model\orm\entry\RoleEntry">
         <field name="name" type="string">
             <validation name="required" />
+            <option name="scaffold.search" value="1" />
+            <option name="scaffold.order" value="1" />
         </field>
         <field name="weight" type="integer" />
         <field name="permissions" model="Permission" relation="hasMany" relationOrder="{permission.code} ASC" />

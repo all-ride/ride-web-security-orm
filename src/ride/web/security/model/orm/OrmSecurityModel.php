@@ -148,22 +148,24 @@ class OrmSecurityModel implements ChainableSecurityModel {
     public function setGrantedPermissionsToRole(Role $role, array $permissions) {
         $modelPermissions = $this->getPermissions();
 
-        $role->permissions = array();
+        $rolePermissions = array();
 
         foreach ($permissions as $code) {
             if (isset($modelPermissions[$code])) {
-                $role->permissions[$code] = $modelPermissions[$code];
+                $rolePermissions[$code] = $modelPermissions[$code];
             } else {
                 $permission = new PermissionEntry();
                 $permission->code = $code;
                 $permission->description = $code;
 
-                $role->permissions[$code] = $permission;
+                $rolePpermissions[$code] = $permission;
             }
         }
 
+        $role->setPermissions($rolePermissions);
+
         $roleModel = $this->orm->getRoleModel();
-        $roleModel->save($role, 'permissions');
+        $roleModel->save($role);
     }
 
     /**
