@@ -2,7 +2,7 @@
     "name": "ride/web-security-orm",
     "description": "ORM security model integration for a Ride web application.",
     "license": "MIT",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "authors": [
         {
             "name": "Joris Vandeweerd",
@@ -11,8 +11,8 @@
     ],
     "require": {
         "ride/app": ">=0.5.0",
-        "ride/app-orm": ">=0.2.0",
-        "ride/lib-orm": ">=0.3.0",
+        "ride/app-orm": ">=0.3.1",
+        "ride/lib-orm": ">=0.6.3",
         "ride/lib-security": ">=0.4.0",
         "ride/lib-system": ">=0.1.2",
         "ride/web": ">=0.2.4",
@@ -20,6 +20,7 @@
     },
     "autoload": {
         "psr-0": {
+            "ride\\application\\orm\\": ["src/"],
             "ride\\web\\security\\model\\orm\\": ["src/"]
         }
     }
