@@ -22,15 +22,15 @@ class OwnerBehaviourInitializer implements BehaviourInitializer {
      * @see \ride\library\orm\model\behaviour\Behaviour
      */
     public function getBehavioursForModel(ModelTable $modelTable) {
-        $useOwnerObject = $modelTable->getOption('behaviour.owner');
-        if ($useOwnerObject === null) {
+        $useUserEntry = $modelTable->getOption('behaviour.owner');
+        if ($useUserEntry === null) {
             return array();
         }
 
-        $useOwnerObject = Boolean::getBoolean($useOwnerObject);
+        $useUserEntry = Boolean::getBoolean($useUserEntry);
 
         if (!$modelTable->hasField('owner')) {
-            if ($useOwnerObject) {
+            if ($useUserEntry) {
                 $ownerField = new BelongsToField('owner', 'User');
             } else {
                 $ownerField = new PropertyField('owner', 'string');
@@ -44,7 +44,7 @@ class OwnerBehaviourInitializer implements BehaviourInitializer {
             $modelTable->addField($ownerField);
         }
 
-        return array(new OwnerBehaviour($useOwnerObject));
+        return array(new OwnerBehaviour($useUserEntry));
     }
 
     /**
@@ -55,12 +55,12 @@ class OwnerBehaviourInitializer implements BehaviourInitializer {
      * @return null
      */
     public function generateEntryClass(ModelTable $modelTable, CodeGenerator $generator, CodeClass $class) {
-        $useOwnerObject = $modelTable->getOption('behaviour.owner');
-        if ($useOwnerObject === null) {
+        $useUserEntry = $modelTable->getOption('behaviour.owner');
+        if ($useUserEntry === null) {
             return;
         }
 
-        if ($useOwnerObject) {
+        if ($useUserEntry) {
             $class->addImplements('ride\\application\\orm\\entry\\OwnedEntry');
         } else {
             $class->addImplements('ride\\library\\orm\\entry\\OwnedEntry');
