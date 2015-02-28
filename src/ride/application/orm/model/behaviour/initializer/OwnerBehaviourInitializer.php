@@ -9,6 +9,8 @@ use ride\library\generator\CodeGenerator;
 use ride\library\orm\definition\field\BelongsToField;
 use ride\library\orm\definition\field\PropertyField;
 use ride\library\orm\definition\ModelTable;
+use ride\library\orm\model\behaviour\initializer\BehaviourInitializer;
+use ride\library\reflection\Boolean;
 
 /**
  * Setup the owner behaviour based on the model options
