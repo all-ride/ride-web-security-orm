@@ -1,0 +1,4 @@
+{
+    "orm.security.error.username.exists": "%username% is already assigned to another user",
+    "orm.security.error.email.exists": "%email% is already assigned to another user"
+}

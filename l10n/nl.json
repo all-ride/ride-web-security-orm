@@ -1,0 +1,4 @@
+{
+    "orm.security.error.username.exists": "%username% wordt reeds gebruikt door een andere gebruiker",
+    "orm.security.error.email.exists": "%email% wordt reeds gebruikt door een andere gebruiker"
+}
