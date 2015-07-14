@@ -2,19 +2,25 @@
 <models>
     <model name="User" modelClass="ride\web\security\model\orm\UserModel" entryClass="ride\web\security\model\orm\entry\UserEntry">
         <field name="username" type="string">
+            <option name="label.name" value="label.username" />
             <validation name="required" />
             <validation name="size">
                 <parameter name="minimum" value="2" />
             </validation>
         </field>
         <field name="password" type="password">
+            <option name="label.name" value="label.password" />
             <validation name="required" />
             <validation name="size">
                 <parameter name="minimum" value="3" />
             </validation>
         </field>
-        <field name="name" type="string" />
-        <field name="email" type="email" />
+        <field name="name" type="string">
+            <option name="label.name" value="label.username" />
+        </field>
+        <field name="email" type="email">
+            <option name="label.name" value="label.email" />
+        </field>
         <field name="isEmailConfirmed" type="boolean" />
         <field name="image" type="image" />
         <field name="userPreferences" model="UserPreference" relation="hasMany" indexOn="name" dependant="1" />
