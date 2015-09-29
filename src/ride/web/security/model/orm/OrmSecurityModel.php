@@ -496,13 +496,13 @@ class OrmSecurityModel implements ChainableSecurityModel {
      * @return null
      */
     public function deletePermission($code) {
-        if (!$this->hasPermission($code)) {
+        $permissionModel = $this->orm->getPermissionModel();
+
+        $permission = $permissionModel->getPermission($code);
+        if (!$permission) {
             return;
         }
 
-        $permission = $this->permissions[$code];
-
-        $permissionModel = $this->orm->getPermissionModel();
         $permissionModel->delete($permission);
     }
 
