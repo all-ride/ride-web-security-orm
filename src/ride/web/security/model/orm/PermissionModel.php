@@ -21,6 +21,18 @@ class PermissionModel extends GenericModel {
     }
 
     /**
+     * Gets a permission from the model
+     * @param string $code Code of the permission
+     * @return \ride\library\security\model\Permission|null
+     */
+    public function getPermission($code) {
+        $query = $this->createQuery();
+        $query->addCondition('{code} = %1%', $code);
+
+        return $query->queryFirst();
+    }
+
+    /**
      * Check if the given permission exists in the model
      * @param string $code Code of the permission to check
      * @return boolean True if it exists, false otherwise
