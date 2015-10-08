@@ -51,6 +51,7 @@ class SecuredPathModel extends GenericModel {
     public function getSecuredPaths() {
         $query = $this->createQuery();
         $query->addCondition('{isSecured} = 1');
+        $query->addOrderBy('{weight} ASC');
 
         $result = $query->query();
 
@@ -70,6 +71,7 @@ class SecuredPathModel extends GenericModel {
     public function getPathsFromArray(array $paths) {
         $modelPaths = array();
 
+        $weight = 0;
         foreach ($paths as $path) {
             $query = $this->createQuery();
             $query->addCondition('{path} = %1%', $path);
@@ -81,6 +83,8 @@ class SecuredPathModel extends GenericModel {
                     'isSecured' => false,
                 ));
             }
+
+            $modelPath->setWeight($weight++);
 
             $modelPaths[] = $modelPath;
         }
