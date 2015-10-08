@@ -67,7 +67,7 @@
         </field>
         <field name="weight" type="integer" />
         <field name="permissions" model="Permission" relation="hasMany" relationOrder="{permission.code} ASC" />
-        <field name="rolePaths" model="SecuredPath" relation="hasMany" relationOrder="{securedPath.path} ASC" />
+        <field name="rolePaths" model="SecuredPath" relation="hasMany" order="true" />
 
         <format name="title">{name}</format>
 
@@ -94,9 +94,14 @@
 
     <model name="SecuredPath" modelClass="ride\web\security\model\orm\SecuredPathModel">
         <field name="path" type="string" unique="true">
+            <option name="scaffold.order" value="1" />
             <validation name="required" />
         </field>
         <field name="isSecured" type="boolean" />
+        <field name="weight" type="integer">
+            <option name="label.name" value="label.weight" />
+            <option name="scaffold.order" value="1" />
+        </field>
 
         <index name="isSecured">
             <indexField name="isSecured" />
