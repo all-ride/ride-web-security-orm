@@ -58,11 +58,13 @@ class UserEntry extends OrmUserEntry implements User {
      * @return string
      */
     public function getDisplayName() {
-        if (!$this->name) {
-            return $this->username;
+        $name = $this->getName();
+
+        if (!$name) {
+            return $this->getUsername();
         }
 
-        return $this->name;
+        return $name;
     }
 
     /**
