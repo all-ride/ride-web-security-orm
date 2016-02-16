@@ -50,7 +50,7 @@ class UserEntry extends OrmUserEntry implements User {
      * @return null
      */
     public function setDisplayName($name) {
-        $this->name = $name;
+        parent::setName($name);
     }
 
     /**
