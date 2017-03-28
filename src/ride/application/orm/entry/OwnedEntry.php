@@ -14,7 +14,7 @@ interface OwnedEntry {
      * @param \ride\web\security\model\orm\entry\UserEntry $owner
      * @return null
      */
-    public function setOwner(WebUserEntry $owner);
+    public function setOwner(WebUserEntry $owner = null);
 
     /**
      * Gets the owner of the entry
