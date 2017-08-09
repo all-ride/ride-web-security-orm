@@ -2,7 +2,6 @@
 
 namespace ride\web\security\model\orm;
 
-use ride\library\encryption\hash\Hash;
 use ride\library\event\Event;
 use ride\library\event\EventManager;
 use ride\library\orm\OrmManager;
@@ -37,19 +36,12 @@ class OrmSecurityModel implements ChainableSecurityModel {
     private $eventManager;
 
     /**
-     * Instance of the hash algorithm
-     * @var ride\library\encryption\hash\Hash
-     */
-    private $hashAlgorithm;
-
-    /**
      * Constructs a new orm security model
      * @return null
      */
-    public function __construct(OrmManager $orm, EventManager $eventManager, Hash $hashAlgorithm) {
+    public function __construct(OrmManager $orm, EventManager $eventManager) {
         $this->orm = $orm;
         $this->eventManager = $eventManager;
-        $this->hashAlgorithm = $hashAlgorithm;
 
         $this->eventManager->addEventListener(SecurityManager::EVENT_LOGIN, array($this, 'onLogin'));
     }
@@ -315,15 +307,6 @@ class OrmSecurityModel implements ChainableSecurityModel {
      * @return null
      */
     public function saveUser(User $user) {
-        if ($user->isPasswordChanged()) {
-            $this->eventManager->triggerEvent(SecurityManager::EVENT_PASSWORD_UPDATE, array('user' => $user, 'password' => $user->password));
-
-            if ($this->hashAlgorithm) {
-                $user->setPassword($this->hashAlgorithm->hash($user->getPassword()));
-                $user->clearIsPasswordChanged();
-            }
-        }
-
         $userModel = $this->orm->getUserModel();
         $userModel->save($user);
     }

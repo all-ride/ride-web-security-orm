@@ -3,22 +3,7 @@
         {
             "interfaces": ["ride\\library\\security\\model\\SecurityModel", "ride\\library\\security\\model\\ChainableSecurityModel"],
             "class": "ride\\web\\security\\model\\orm\\OrmSecurityModel",
-            "id": "orm",
-            "calls": [
-                {
-                    "method": "__construct",
-                    "arguments": [
-                        {
-                            "name": "hashAlgorithm",
-                            "type": "dependency",
-                            "properties": {
-                                "interface": "ride\\library\\encryption\\hash\\Hash",
-                                "id": "security"
-                            }
-                        }
-                    ]
-                }
-            ]
+            "id": "orm"
         },
         {
             "interfaces": "ride\\library\\security\\model\\SecurityModel",
