@@ -4,6 +4,8 @@ namespace ride\web\security\model\orm;
 
 use ride\library\orm\query\ModelQuery;
 use ride\library\orm\model\GenericModel;
+use ride\library\security\model\User;
+use ride\library\security\SecurityManager;
 use ride\library\validation\exception\ValidationException;
 use ride\library\validation\ValidationError;
 
@@ -115,6 +117,21 @@ class UserModel extends GenericModel {
         if ($exception->hasErrors()) {
             throw $exception;
         }
+    }
+
+    public function saveEntry($user) {
+        if ($user instanceof User && $user->isPasswordChanged()) {
+            $dependencyInjector = $this->getOrmManager()->getDependencyInjector();
+
+            $eventManager = $dependencyInjector->get('ride\\library\\event\\EventManager');
+            $eventManager->triggerEvent(SecurityManager::EVENT_PASSWORD_UPDATE, array('user' => $user, 'password' => $user->getPassword()));
+
+            $hashAlgorithm = $dependencyInjector->get('ride\\library\\encryption\\hash\\Hash', 'security');
+            $user->setPassword($hashAlgorithm->hash($user->getPassword()));
+            $user->clearIsPasswordChanged();
+        }
+
+        parent::saveEntry($user);
     }
 
 }
