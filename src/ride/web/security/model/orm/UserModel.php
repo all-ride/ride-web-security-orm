@@ -119,7 +119,7 @@ class UserModel extends GenericModel {
         }
     }
 
-    public function saveEntry($user) {
+    protected function saveEntry($user) {
         if ($user instanceof User && $user->isPasswordChanged()) {
             $dependencyInjector = $this->getOrmManager()->getDependencyInjector();
 
